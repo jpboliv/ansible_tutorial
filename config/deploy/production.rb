@@ -61,4 +61,4 @@
 #   }
 
 
-server "ec2-15-237-27-46.eu-west-3.compute.amazonaws.com", user: "deploy"
+server "ec2-15-237-27-46.eu-west-3.compute.amazonaws.com", user: "deploy", roles: %w(web app db)
