@@ -1,0 +1,24 @@
+---
+- hosts: rails
+  remote_user: root
+  become: yes
+  tasks:
+      # run apt-get dist-upgrade
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist 
+
+      # create a remote user -> deploy
+    - name: Add deploy remote_user
+      user:
+        name: deploy
+        shell: /bin/bash
+
+      # set ssh key for "deploy" user
+    - name: Add SSH key to server for deploy user
+      authorized_key: 
+        user: deploy
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDSQWRTuTWT+8/mK8+eDS7cZQZj4nP9hg+ko5jVayt1+SgCb0kl0j7h7U3XGIiNS/lI2SGf709Dwd1gPKa7RyG9/Vb2yb7cJUgRqzU3JOSydZMtJait/mNcK9ZC2O+WOi1Pm68MSa4AeRPLclDJWORrS69Efx/eFyw9eMMBLgum8rb02Esor8hvZnQ/2OErdR5+J7X6aJRdLie/tef6Ho9Iwc5tAorY32iWw+rAoDwSINWYIO/Q1dL1t9P/tyKJ5vegArakfo0yuZGL/6kg3BGW1AiYtf1wkYS+4RB2u54yEzGQ8b3G1+M13PfwpZgcD+/KY3RfPhGcVOMXUHyXoqtiVH7T5kpas8sJwNAsiUEAoIXr544+uKtawnS73TeT/nD4mCJv2Q/0l/3H5S4+0UoaL8QMnO73A+mQP2Xzp+L6GkT7ihfR3z6TU5a1zY4q9qbTwe5R6yhuSshnF1lpfqDwGq7zgItzD8Gn9YVutFYyksbIQyXfpBMs8JK+j2NkbLm0oODszivkiLLJuitNxhi2bhIUA3Ta+2yBty7vhHZgheMM9vTCKjK/laJb7SuylJhxV6zKMSIxJHxqnAnDNUgHnmL3hSxN7A+E/ksdO2LOYPDZhFCzq0FaSYWar/a9eFPemDCqlgRBgvNi8pn9bQigY3dtA22kO8TYCS4K+Xvjmw== joao.oliveira@deemaze.com"
+        
+    # install ruby dependencies & ruby
+    - include: tasks/ruby.yml 
