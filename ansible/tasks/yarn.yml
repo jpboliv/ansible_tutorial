@@ -1,0 +1,23 @@
+- name: Make sure HTTPS is supported by apt
+  apt:
+    name: apt-transport-https
+    state: present
+    update_cache: yes
+
+- name: Import YARN APT key
+  apt_key:
+    url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
+    state: present
+  when: (http_proxy is undefined) or (http_proxy is none)
+
+- name: Import YARN APT key (proxy)
+  apt_key:
+    url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
+    state: present
+
+- name: Install YARN APT repo
+  apt_repository:
+    repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+    filename: "yarn"
+    state: present
+    update_cache: yes

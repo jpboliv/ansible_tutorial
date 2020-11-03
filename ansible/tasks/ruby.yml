@@ -30,9 +30,9 @@
  - name: Install Ruby
    become: yes
    become_user: deploy
-   command: /usr/local/bin/ruby-install --no-install-deps ruby 2.5.0
+   command: /usr/local/bin/ruby-install --no-install-deps ruby 2.6.5
    args:
-    creates: /home/deploy/.rubies/ruby-2.5.0
+    creates: /home/deploy/.rubies/ruby-2.6.5
 
  - name: Download chruby
    become: no
@@ -64,14 +64,14 @@
    lineinfile:
     path: /home/deploy/.profile
     regexp: '^chruby'
-    line: 'chruby ruby-2.5.0'
+    line: 'chruby ruby-2.6.5'
 
  - name: Install bundler
    become: yes
    become_user: deploy
-   command: 'chruby-exec ruby-2.5.0 -- gem install bundler'
+   command: 'chruby-exec ruby-2.6.5 -- gem install bundler'
    args:
-    creates: /home/deploy/.gem/ruby/2.5.0/bin/bundle
+    creates: /home/deploy/.gem/ruby/2.6.5/bin/bundle
 
  - name: Install nginx
    apt: 
