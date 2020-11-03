@@ -27,7 +27,7 @@
       retries: 10
       delay: 2
 
-# install yarn
+    # install yarn
     - include: tasks/yarn.yml 
     # install ruby dependencies & ruby
     - include: tasks/ruby.yml 
